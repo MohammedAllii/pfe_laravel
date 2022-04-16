@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDiplomesTable extends Migration
+class CreateOffresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateDiplomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('diplomes', function (Blueprint $table) {
+        Schema::create('offres', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('ecole');
-            $table->string('diplome');
-            $table->string('localite');
-            $table->date('debut');
-            $table->date('fin');
+            $table->string('poste');
+            $table->string('lieu_travail');
+            $table->string('contrat');
+            $table->string('temps_travail');
+            $table->string('salaire');
+            $table->string('periode');
             $table->string('description');
-            $table->integer('id_cv');
+            $table->integer('id_company');
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateDiplomesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diplomes');
+        Schema::dropIfExists('offres');
     }
 }

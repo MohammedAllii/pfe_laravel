@@ -16,13 +16,15 @@ class CreateCvsTable extends Migration
         Schema::create('cvs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('last_name')->nullable();
             $table->string('email');
-            $table->integer('phone');
+            $table->integer('phone')->nullable();
             $table->string('poste');
-            $table->string('github');
-            $table->string('linkedin');
-            $table->string('description');
-            $table->string('interet');
+            $table->string('resume')->nullable();
+            $table->string('localite');
+            $table->date('date_naissance')->nullable();
+            $table->string('pdf')->nullable();
+            $table->string('avatar')->nullable()->default('user.png');
             $table->integer('id_user');
             $table->timestamps();
         });

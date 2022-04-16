@@ -15,6 +15,13 @@ class CreateExperiencesTable extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('poste');
+            $table->string('name_company');
+            $table->string('localite');
+            $table->date('debut');
+            $table->date('fin');
+            $table->string('description');
+            $table->integer('id_cv');
             $table->timestamps();
         });
     }

@@ -34,19 +34,21 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function register(){
+    public function register(Request $request){
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6'
+        ]);
         User::create([
             'name' => request('name'),
             'email' => request('email'),
             'password' =>Hash::make(request('password')),
             'role' => request('role'),
-            'adresse' => request('adresse'),
-            'civilite' =>request('civilite'),
-            'date_naissance' =>request('date_naissance'),
-            'site_web' =>request('site_web')
         ]);
         return $this->login(request());
     }
+
 
     /**
      * Get the authenticated User.
@@ -96,42 +98,8 @@ class AuthController extends Controller
             'user' => auth()->user()
         ]);
     }
-// google login
-    public function redirectToGoogle()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-// google callback
-    public function handleGoogleCallback()
-    {
-        $user = Socialite::driver('google')->user();
- 
-        // $user->token;
-    }
 
-// facebook login
-    public function redirectToFacebook()
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
-// facebook callback
-    public function handleFacebookCallback()
-    {
-        $user = Socialite::driver('facebook')->user();
- 
-        // $user->token;
-    }
 
-// github login
-    public function redirectToGithub()
-    {
-        return Socialite::driver('github')->redirect();
-    }
-// google callback
-    public function handleGithubCallback()
-    {
-        $user = Socialite::driver('github')->user();
- 
-        // $user->token;
-    }
+
+
 }

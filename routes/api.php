@@ -33,4 +33,15 @@ Route::group([
     Route::post('registercv', 'CvController@registercv');
     Route::get('allCv/{id}', 'CvController@allCv');
     Route::get('affichecv/{id}', 'CvController@affichecv');
+    Route::get('afficheuser/{id}', 'UserController@afficheuser');
+    Route::post('upload/{id}','UserController@upload')->name('upload');
+    Route::post('uploadcv/{id}','CvController@uploadcv')->name('uploadcv');
+    Route::get('getUser/{id}', 'UserController@getUser');
+    Route::post('updatename/{id}', 'UserController@updatename')->name('updatename');
+    Route::post('updateemail/{id}', 'UserController@updateemail')->name('updateemail');
+    Route::post('updatepassword/{id}', 'UserController@updatepassword')->name('updatepassword');
+    Route::delete('deleteuser/{id}', 'UserController@deleteuser');
+
 });
+
+

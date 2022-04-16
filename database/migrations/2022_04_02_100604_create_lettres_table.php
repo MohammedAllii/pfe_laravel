@@ -15,6 +15,8 @@ class CreateLettresTable extends Migration
     {
         Schema::create('lettres', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('titre');
+            $table->text('contenu');
             $table->timestamps();
         });
     }
