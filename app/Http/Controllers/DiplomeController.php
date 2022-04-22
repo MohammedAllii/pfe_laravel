@@ -1,10 +1,55 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Diplome;
 use Illuminate\Http\Request;
 
 class DiplomeController extends Controller
 {
-    //
+    //ajouter diplome
+    public function adddiplome(Request $request){
+        Diplome::create([
+            'etablissement' => request('etablissement'),
+            'diplome' => request('diplome'),
+            'country' =>request('country'),
+            'discipline' =>request('discipline'),
+            'debut' => request('debut'),
+            'fin' => request('fin'),
+            'description' => request('description'),
+            'id_cv' => request('id_cv'),
+        ]);
+        return response()->json([
+            "message" => "ajout avec success"
+        ]);
+    }
+    //affiche diplome
+    public function getdiplome($id){
+        $diplome = Diplome::where("id_cv","=",$id)->get();
+        return response()->json($diplome);
+    }
+    //affiche diplome a modifier
+    public function affichediplome($id){
+        $diplome = Diplome::where("id","=",$id)->first();
+        return response()->json($diplome);
+    }
+    //supprimer diplome
+    public function deletediplome($id){
+        $diplome = Diplome::find($id);
+        $diplome->delete();
+        return response()->json($diplome);
+    }
+    //modifier diplome
+    public function modifierdiplome(Request $request,$id ){
+        $diplome = Diplome::where('id','=',$id)->update([
+        'etablissement'=>$request->etablissement,
+        'diplome'=>$request->diplome,
+        'country'=>$request->country,
+        'discipline'=>$request->discipline,
+        'debut'=>$request->debut,
+        'fin'=>$request->fin,
+        'description'=>$request->description,
+        
+        ]);
+        return response()->json($diplome);
+    }
 }

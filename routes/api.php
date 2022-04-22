@@ -23,7 +23,7 @@ Route::group([
     'prefix' => 'auth'
 
 ], function ($router) {
-
+    //Authentification
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@register');
     Route::post('logout', 'AuthController@logout');
@@ -36,11 +36,39 @@ Route::group([
     Route::get('afficheuser/{id}', 'UserController@afficheuser');
     Route::post('upload/{id}','UserController@upload')->name('upload');
     Route::post('uploadcv/{id}','CvController@uploadcv')->name('uploadcv');
+    Route::post('addresume/{id}','CvController@addresume')->name('addresume');
+    Route::post('addinteret/{id}','CvController@addinteret')->name('addinteret');
+    Route::post('addskills/{id}','CvController@addskills')->name('addskills');
     Route::get('getUser/{id}', 'UserController@getUser');
     Route::post('updatename/{id}', 'UserController@updatename')->name('updatename');
     Route::post('updateemail/{id}', 'UserController@updateemail')->name('updateemail');
+    Route::post('updateinfo/{id}', 'CvController@updateinfo')->name('updateinfo');
     Route::post('updatepassword/{id}', 'UserController@updatepassword')->name('updatepassword');
     Route::delete('deleteuser/{id}', 'UserController@deleteuser');
+    //experience
+    Route::get('getexperience/{id}','ExperienceController@getexperience');
+    Route::get('afficheexperience/{id}','ExperienceController@afficheexperience');
+    Route::post('addexperience','ExperienceController@addexperience')->name('addexperience');
+    Route::post('modifierexperience/{id}','ExperienceController@modifierexperience')->name('modifierexperience');
+    Route::delete('deleteexperience/{id}','ExperienceController@deleteexperience');
+    //diplomes
+    Route::get('getdiplome/{id}','DiplomeController@getdiplome');
+    Route::get('affichediplome/{id}','DiplomeController@affichediplome');
+    Route::post('adddiplome','DiplomeController@adddiplome')->name('adddiplome');
+    Route::post('modifierdiplome/{id}','DiplomeController@modifierdiplome')->name('modifierdiplome');
+    Route::delete('deletediplome/{id}','DiplomeController@deletediplome');
+    //competence
+    Route::get('getcompetence/{id}','CompetenceController@getcompetence');
+    Route::get('affichecompetence/{id}','CompetenceController@affichecompetence');
+    Route::post('addcompetence','CompetenceController@addcompetence')->name('addcompetence');
+    Route::post('modifiercompetence/{id}','CompetenceController@modifiercompetence')->name('modifiercompetence');
+    Route::delete('deletecompetence/{id}','CompetenceController@deletecompetence');
+    //liens
+    Route::get('getlien/{id}','LienController@getlien');
+    Route::get('affichelien/{id}','LienController@affichelien');
+    Route::post('addlien','LienController@addlien')->name('addlien');
+    Route::post('modifierlien/{id}','LienController@modifierlien')->name('modifierlien');
+    Route::delete('deletelien/{id}','LienController@deletelien');
 
 });
 

@@ -15,9 +15,10 @@ class CreateDiplomesTable extends Migration
     {
         Schema::create('diplomes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('ecole');
+            $table->string('etablissement');
             $table->string('diplome');
-            $table->string('localite');
+            $table->string('country');
+            $table->string('discipline');
             $table->date('debut');
             $table->date('fin');
             $table->string('description');

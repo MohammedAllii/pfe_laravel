@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Competence extends Model
 {
     protected $fillable = [
-        'avatar'
+        'competence', 'experience','id_cv',
     ];
 }

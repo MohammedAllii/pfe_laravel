@@ -17,10 +17,10 @@ class CreateExperiencesTable extends Migration
             $table->bigIncrements('id');
             $table->string('poste');
             $table->string('name_company');
-            $table->string('localite');
+            $table->string('country');
             $table->date('debut');
             $table->date('fin');
-            $table->string('description');
+            $table->text('description');
             $table->integer('id_cv');
             $table->timestamps();
         });

@@ -5,7 +5,6 @@ use App\Cv;
 use App\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\File;
 
 class CvController extends Controller
 {
@@ -21,7 +20,7 @@ class CvController extends Controller
     }
     public function allCv($id){
         $cv = Cv::all()->where('id_user','=',$id);
-        Carbon::setlocale('fr');
+        Carbon::setlocale('ang');
         foreach($cv as $cvs){
             $cvs->setAttribute('added',Carbon::parse($cvs->created_at)->diffForHumans());
         }
@@ -43,25 +42,63 @@ class CvController extends Controller
     
     //modifier cv avatar
     public function uploadcv(Request $request,$id){
-        try{
-            $cv = Cv::find($id);
-            if($request->hasFile("img")){
-                $destination='C:/Users/wiouu/hamoudat/public/cvs/'.$cv->avatar;
-                   if(File::exists($destination)){
-                       File::delete($destination);
-                   }
-                $file = $request->file("img");
-                $extension=$file->getClientOriginalExtension();
-                $filename=time().'.'.$extension;
-                $file->move('C:/Users/wiouu/hamoudat/public/cvs/',$filename);
-                $cv->avatar=$filename;
-                $res=$cv->save();
-                return response()->json($user);
-            }
-        }catch(Exeption $e){
-            return response()->json([
-                "message" => $e->getMessage()
+            try{
+                $cv = Cv::find($id);
+                if($request->hasFile("img")){
+                    $destination='C:/Users/wiouu/hamoudat/public/cvs/'.$cv->avatar;
+                    $file = $request->file("img");
+                    $extension=$file->getClientOriginalExtension();
+                    $filename=time().'.'.$extension;
+                    $file->move('C:/Users/wiouu/hamoudat/public/cvs/',$filename);
+                    $cv->avatar=$filename;
+                    $res=$cv->save();
+                    return response()->json($cv);
+                }
+            }catch(Exeption $e){
+                return response()->json([
+                    "message" => $e->getMessage()
+                ]);
+            }}
+        //info personnels
+        public function updateinfo(Request $request,$id ){
+            $cv = Cv::where('id','=',$id)->update([
+            'name'=>$request->name,
+            'last_name'=>$request->last_name,
+            'poste'=>$request->poste,
+            'localite'=>$request->localite,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'adresse'=>$request->adresse,
+            'code_postal'=>$request->code_postal,
+            'etat'=>$request->etat,
+            'ville'=>$request->ville,
+            'nationalite'=>$request->nationalite,
+            'date_naissance'=>$request->date_naissance
+            
             ]);
-        }}
+            return response()->json($cv);
+        }
+        //ajouter résumé
+        public function addresume(Request $request,$id ){
+            $cv = Cv::where('id','=',$id)->update([
+            'resume'=>$request->resume
+            ]);
+            return response()->json($cv);
+        }
+        //ajouter interet
+        public function addinteret(Request $request,$id ){
+            $cv = Cv::where('id','=',$id)->update([
+            'interet'=>$request->interet
+            ]);
+            return response()->json($cv);
+        }
+        //ajouter skills
+        public function addskills(Request $request,$id ){
+            $cv = Cv::where('id','=',$id)->update([
+            'skills'=>$request->skills
+            ]);
+            return response()->json($cv);
+        }
+        
 
 }

@@ -11,10 +11,6 @@ class UserController extends Controller
     //supprimer compte
     public function deleteuser($id){
         $user = User::find($id);
-        $destination='C:/Users/wiouu/hamoudat/public/images/'.$user->avatar;
-                   if(File::exists($destination)){
-                       File::delete($destination);
-                   }
         $user->delete();
         return response()->json([
             "message" => "success"
