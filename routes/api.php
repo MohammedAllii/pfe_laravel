@@ -69,6 +69,12 @@ Route::group([
     Route::post('addlien','LienController@addlien')->name('addlien');
     Route::post('modifierlien/{id}','LienController@modifierlien')->name('modifierlien');
     Route::delete('deletelien/{id}','LienController@deletelien');
+    //langues
+    Route::get('getlangue/{id}','LangueController@getlangue');
+    Route::get('affichelangue/{id}','LangueController@affichelangue');
+    Route::post('addlangue','LangueController@addlangue')->name('addlangue');
+    Route::post('modifierlangue/{id}','LangueController@modifierlangue')->name('modifierlangue');
+    Route::delete('deletelangue/{id}','LangueController@deletelangue');
 
 });
 

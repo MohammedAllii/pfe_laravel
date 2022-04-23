@@ -22,4 +22,20 @@ class LienController extends Controller
         $lien = Lien::where("id_cv","=",$id)->get();
         return response()->json($lien);
     }
+    //modifier liens
+    public function modifierlien(Request $request,$id ){
+        $lien = Lien::where('id','=',$id)->update([
+        'titre'=>$request->titre,
+        'url'=>$request->url,
+
+        
+        ]);
+        return response()->json($lien);
+    }
+    //supprimer lien
+    public function deletelien($id){
+        $lien = Lien::find($id);
+        $lien->delete();
+        return response()->json($lien);
+    }
 }
