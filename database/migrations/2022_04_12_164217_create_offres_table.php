@@ -21,6 +21,7 @@ class CreateOffresTable extends Migration
             $table->string('temps_travail');
             $table->string('salaire');
             $table->string('periode');
+            $table->string('etat')->default(false);
             $table->string('description');
             $table->integer('id_company');
             $table->timestamps();

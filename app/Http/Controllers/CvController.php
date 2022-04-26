@@ -20,7 +20,16 @@ class CvController extends Controller
     }
     public function allCv($id){
         $cv = Cv::all()->where('id_user','=',$id);
-        Carbon::setlocale('ang');
+        Carbon::setlocale('fr');
+        foreach($cv as $cvs){
+            $cvs->setAttribute('added',Carbon::parse($cvs->created_at)->diffForHumans());
+        }
+        return response()->json($cv);
+    }
+    //tous les cv
+    public function allCvs(){
+        $cv = Cv::all()->where('resume','!=',null);
+        Carbon::setlocale('fr');
         foreach($cv as $cvs){
             $cvs->setAttribute('added',Carbon::parse($cvs->created_at)->diffForHumans());
         }
@@ -99,6 +108,35 @@ class CvController extends Controller
             ]);
             return response()->json($cv);
         }
+        //telecharger cv
+        public function downloadcv(Request $request){
+            try{
+                if($request->hasFile("img")){
+                    $file = $request->file("img");
+                    $extension=$file->getClientOriginalExtension();
+                    $filename=time().'.'.$extension;
+                    $file->move('C:/Users/wiouu/hamoudat/public/cvs/',$filename);
+                    Cv::create([
+                        'name' => request('name'),
+                        'email' => request('email'),
+                        'poste' =>request('poste'),
+                        'localite' =>request('localite'),
+                        'id_user' =>request('id_user'),
+                        'pdf' =>$filename
+                    ]);
+                    return response()->json(["message" => "3abi kes tey b louz"]);
+                }
+            }catch(Exeption $e){
+                return response()->json([
+                    "message" => "ereeeeeeeur"
+                ]);
+            }}
+            //supprimer cv
+            public function deletecv($id){
+                $cv = Cv::find($id);
+                $cv->delete();
+                return response()->json($cv);
+    }
         
 
 }

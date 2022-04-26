@@ -32,10 +32,14 @@ Route::group([
 
     Route::post('registercv', 'CvController@registercv');
     Route::get('allCv/{id}', 'CvController@allCv');
+    Route::get('allCvs', 'CvController@allCvs');
     Route::get('affichecv/{id}', 'CvController@affichecv');
+    Route::delete('deletecv/{id}', 'CvController@deletecv');
+
     Route::get('afficheuser/{id}', 'UserController@afficheuser');
     Route::post('upload/{id}','UserController@upload')->name('upload');
     Route::post('uploadcv/{id}','CvController@uploadcv')->name('uploadcv');
+    Route::post('downloadcv','CvController@downloadcv')->name('downloadcv');
     Route::post('addresume/{id}','CvController@addresume')->name('addresume');
     Route::post('addinteret/{id}','CvController@addinteret')->name('addinteret');
     Route::post('addskills/{id}','CvController@addskills')->name('addskills');
@@ -75,6 +79,12 @@ Route::group([
     Route::post('addlangue','LangueController@addlangue')->name('addlangue');
     Route::post('modifierlangue/{id}','LangueController@modifierlangue')->name('modifierlangue');
     Route::delete('deletelangue/{id}','LangueController@deletelangue');
+    //offres
+    Route::get('getoffre/{id}','OffreController@getoffre');
+    Route::get('alloffres','OffreController@alloffres');
+    Route::post('registeroffre','OffreController@registeroffre')->name('registeroffre');
+    Route::post('modifieroffre/{id}','OffreController@modifieroffre')->name('modifieroffre');
+    Route::delete('deleteoffre/{id}','OffreController@deleteoffre');
 
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Diplome;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DiplomeController extends Controller
 {
@@ -25,6 +26,12 @@ class DiplomeController extends Controller
     //affiche diplome
     public function getdiplome($id){
         $diplome = Diplome::where("id_cv","=",$id)->get();
+        Carbon::setlocale('fr');
+        foreach($diplome as $diplomes){
+            $diplomes->setAttribute('debut',Carbon::parse($diplomes->debut)->format('j F Y'));
+            $diplomes->setAttribute('fin',Carbon::parse($diplomes->fin)->format('j F Y'));
+        }
+        
         return response()->json($diplome);
     }
     //affiche diplome a modifier
