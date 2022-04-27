@@ -85,6 +85,14 @@ Route::group([
     Route::post('registeroffre','OffreController@registeroffre')->name('registeroffre');
     Route::post('modifieroffre/{id}','OffreController@modifieroffre')->name('modifieroffre');
     Route::delete('deleteoffre/{id}','OffreController@deleteoffre');
+    //lettres
+    Route::get('getlettre/{id}','LettreController@getlettre');
+    Route::get('allLettres/{id}','LettreController@allLettres');
+    Route::post('registerlettre','LettreController@registerlettre')->name('registerlettre');
+    Route::post('modifierlettre/{id}','LettreController@modifierlettre')->name('modifierlettre');
+    Route::delete('deletelettre/{id}','LettreController@deletelettre');
+    Route::post('downloadlettre','LettreController@downloadlettre')->name('downloadlettre');
+    Route::get('affichelettre/{id}', 'LettreController@affichelettre');
 
 });
 

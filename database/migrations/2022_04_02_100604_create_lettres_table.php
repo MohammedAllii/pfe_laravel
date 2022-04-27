@@ -16,7 +16,13 @@ class CreateLettresTable extends Migration
         Schema::create('lettres', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('titre');
-            $table->text('contenu');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('poste')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('contenu')->nullable();
+            $table->string('pdf')->nullable();
+            $table->integer('id_user');
             $table->timestamps();
         });
     }
