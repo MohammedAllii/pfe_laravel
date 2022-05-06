@@ -17,7 +17,8 @@ class CreateLanguesTable extends Migration
             $table->bigIncrements('id');
             $table->string('langue');
             $table->string('niveau');
-            $table->integer('id_cv');
+            $table->unsignedBigInteger('id_cv');
+            $table->foreign('id_cv')->references('id')->on('cvs')->onDelete('cascade');
             $table->timestamps();
         });
     }

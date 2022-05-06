@@ -22,7 +22,8 @@ class CreateLettresTable extends Migration
             $table->string('phone')->nullable();
             $table->text('contenu')->nullable();
             $table->string('pdf')->nullable();
-            $table->integer('id_user');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

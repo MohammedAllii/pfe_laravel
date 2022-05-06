@@ -71,4 +71,9 @@ class UserController extends Controller
             ]);
         return response()->json($user);
     }
+    //affiche company
+    public function getcompany(){
+        $company = User::where('role','=','company')->get();
+        return response()->json($company);
+    }
 }

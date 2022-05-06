@@ -22,7 +22,8 @@ class CreateDiplomesTable extends Migration
             $table->date('debut');
             $table->date('fin');
             $table->string('description');
-            $table->integer('id_cv');
+            $table->unsignedBigInteger('id_cv');
+            $table->foreign('id_cv')->references('id')->on('cvs')->onDelete('cascade');
             $table->timestamps();
         });
     }

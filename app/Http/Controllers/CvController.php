@@ -40,10 +40,10 @@ class CvController extends Controller
         $cv = Cv::find($id);
         return response()->json($cv);
     }
+    //update resume
     public function updatecvresume(Request $request,$id ){
         $cv = Cv::where('id','=',$id)->update([
         'description'=>$request->description
-        
         ]);
         return response()->json($cvs);
     }

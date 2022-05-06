@@ -17,7 +17,8 @@ class CreateLiensTable extends Migration
             $table->bigIncrements('id');
             $table->string('titre');
             $table->string('url');
-            $table->integer('id_cv');
+            $table->unsignedBigInteger('id_cv');
+            $table->foreign('id_cv')->references('id')->on('cvs')->onDelete('cascade');
             $table->timestamps();
         });
     }
