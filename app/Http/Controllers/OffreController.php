@@ -100,7 +100,7 @@ class OffreController extends Controller
     }
     //offres similaires
     public function afficheoffresimilaire($poste){
-        $offree = Offre::where('poste','like','%'.$poste.'%')->skip(1)->first();
+        $offree = Offre::where('poste','like','%'.$poste.'%')->first();
         return response()->json($offree);
     }
     //affiche offre by company
@@ -168,13 +168,57 @@ class OffreController extends Controller
     //recherche offre by poste
     public function rechercheposte($recherche){
         $offre = Offre::where('poste','like','%'.$recherche.'%')->get();
+        Carbon::setlocale('fr');
+        foreach($offre as $offres){
+            $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
+        }
         return response()->json($offre);
     }
     //recherche offre by localite
     public function rechercheposteloc($recherche){
         $offre = Offre::where('lieu_travail','like','%'.$recherche.'%')->get();
+        Carbon::setlocale('fr');
+        foreach($offre as $offres){
+            $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
+        }
         return response()->json($offre);
     }
+    //supprimer offre
+    public function deleteoffre($id){
+        $offre = Offre::find($id);
+        $offre->delete();
+        return response()->json($offre);
+}
+//modifier post
+public function updatepost(Request $request,$id){
+    try{
+    $offre = Offre::where('id','=',$id)->update([
+        'poste' => $request->poste,
+        'lieu_travail' => $request->lieu_travail,
+        'pays' => $request->pays,
+        'contrat' =>$request->contrat,
+        'temps_travail' =>$request->temps_travail,
+        'salaire' =>$request->salaire,
+        'monnaie' => $request->monnaie,
+        'periode' =>$request->periode,
+        'description' =>$request->description,
+        'name_company' => $request->name_company,
+        'site_web' => $request->site_web,
+        'annee' => $request->annee,
+        'employes' => $request->employes,
+        'description_company' => $request->description_company,
+        'question1' =>$request->question1,
+        'question2' =>$request->question2,
+        'question3' =>$request->question3,
+    
+    
+    ]);}catch(Exeption $e){
+        return response()->json([
+            "message" => $e->getMessage()
+        ]);
+    }
+    return response()->json($offre);
+}
     
     
 }

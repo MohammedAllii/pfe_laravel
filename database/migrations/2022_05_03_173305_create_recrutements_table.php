@@ -15,8 +15,8 @@ class CreateRecrutementsTable extends Migration
     {
         Schema::create('recrutements', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('last_name');
+            $table->string('name_candidat');
+            $table->string('last_name_candidat');
             $table->string('email');
             $table->string('cv');
             $table->string('reponse1')->nullable();

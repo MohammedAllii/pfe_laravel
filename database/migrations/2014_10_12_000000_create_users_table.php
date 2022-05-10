@@ -29,6 +29,10 @@ class CreateUsersTable extends Migration
             $table->integer('phone')->nullable();
             $table->integer('annee_fondation')->nullable();
             $table->string('description_entreprise')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('twitter')->nullable();
+            $table->integer('nb_employee')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

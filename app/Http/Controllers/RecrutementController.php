@@ -20,9 +20,9 @@ class RecrutementController extends Controller
                 $filename=time().'.'.$extension;
                 $file->move('C:/Users/wiouu/hamoudat/public/cvs/',$filename);
                 $req = Recrutement::create([
-                    'name' => request('name'),
+                    'name_candidat' => request('name_candidat'),
                     'email' => request('email'),
-                    'last_name' =>request('last_name'),
+                    'last_name_candidat' =>request('last_name_candidat'),
                     'reponse1' =>request('reponse1'),
                     'reponse2' =>request('reponse2'),
                     'reponse3' =>request('reponse3'),
@@ -65,6 +65,15 @@ class RecrutementController extends Controller
         ->where('offres.id',$id_offre)
         ->where('users.id',$id_user)
         ->first();
+        return response()->json($offre);
+            }
+            //afficher info user(cv,formation,experience)
+    public function getcandidatinfo($id_user){
+        $offre = DB::table('users')
+        ->join('cvs','cvs.id_user','users.id')
+        ->join('diplomes','diplomes.id_cv','cvs.id')
+        ->where('users.id',$id_user)
+        ->get();
         return response()->json($offre);
             }
 }

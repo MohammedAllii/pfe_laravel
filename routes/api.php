@@ -41,6 +41,7 @@ Route::group([
     Route::post('addinteret/{id}','CvController@addinteret')->name('addinteret');
     Route::post('addskills/{id}','CvController@addskills')->name('addskills');
     Route::post('updateinfo/{id}', 'CvController@updateinfo')->name('updateinfo');
+    Route::get('recherchecv/{recherche?}','CvController@recherchecv');
     
     //user routes
     Route::get('afficheuser/{id}', 'UserController@afficheuser');
@@ -49,6 +50,7 @@ Route::group([
     Route::post('updatename/{id}', 'UserController@updatename')->name('updatename');
     Route::post('updateemail/{id}', 'UserController@updateemail')->name('updateemail');
     Route::post('updatepassword/{id}', 'UserController@updatepassword')->name('updatepassword');
+    Route::post('updatecompany/{id}', 'UserController@updatecompany')->name('updatecompany');
     Route::delete('deleteuser/{id}', 'UserController@deleteuser');
     //experience routes
     Route::get('getexperience/{id}','ExperienceController@getexperience');
@@ -97,6 +99,7 @@ Route::group([
     Route::get('offresaujordhui','OffreController@offresaujordhui');
     Route::get('rechercheposte/{recherche?}','OffreController@rechercheposte');
     Route::get('rechercheposteloc/{recherche?}','OffreController@rechercheposteloc');
+    Route::post('updatepost/{id}','OffreController@updatepost')->name('updatepost');
 
     //lettres routes
     Route::get('getlettre/{id}','LettreController@getlettre');
@@ -128,6 +131,7 @@ Route::group([
     Route::get('getoffrescandidat/{id}','RecrutementController@getoffrescandidat');
     Route::get('getcandidatdetails/{id_user}/{id_offre}','RecrutementController@getcandidatdetails');
     Route::get('countoffrescandidat/{id}','RecrutementController@countoffrescandidat');
+    Route::get('getcandidatinfo/{id_user}','RecrutementController@getcandidatinfo');
     
 });
 

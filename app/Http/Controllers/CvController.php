@@ -28,7 +28,7 @@ class CvController extends Controller
     }
     //tous les cv
     public function allCvs(){
-        $cv = Cv::all()->where('resume','!=',null);
+        $cv = Cv::paginate(4)->where('resume','!=',null);
         Carbon::setlocale('fr');
         foreach($cv as $cvs){
             $cvs->setAttribute('added',Carbon::parse($cvs->created_at)->diffForHumans());
@@ -136,6 +136,11 @@ class CvController extends Controller
                 $cv = Cv::find($id);
                 $cv->delete();
                 return response()->json($cv);
+    }
+    //recherche cv by poste
+    public function recherchecv($recherche){
+        $cv = Cv::where('poste','like','%'.$recherche.'%')->get();
+        return response()->json($cv);
     }
         
 

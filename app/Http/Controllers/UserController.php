@@ -76,4 +76,21 @@ class UserController extends Controller
         $company = User::where('role','=','company')->get();
         return response()->json($company);
     }
+    //modifier company info
+    public function updatecompany(Request $request,$id){
+        $user = User::where('id','=',$id)->update([
+            'site_web'=>$request->site_web,
+            'annee_fondation'=>$request->annee_fondation,
+            'nb_employee'=>$request->nb_employee,
+            'gouvernorat'=>$request->gouvernorat,
+            'adresse'=>$request->adresse,
+            'description_entreprise'=>$request->description_entreprise,
+            'linkedin'=>$request->linkedin,
+            'facebook'=>$request->facebook,
+            'twitter'=>$request->twitter,
+
+
+            ]);
+        return response()->json($user);
+    }
 }
