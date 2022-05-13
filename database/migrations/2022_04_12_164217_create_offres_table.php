@@ -25,11 +25,6 @@ class CreateOffresTable extends Migration
             $table->string('periode');
             $table->string('etat')->default(false);
             $table->text('description');
-            $table->string('name_company');
-            $table->string('site_web')->nullable();
-            $table->string('annee')->nullable();
-            $table->string('employes')->nullable();
-            $table->text('description_company')->nullable();
             $table->text('question1')->nullable();
             $table->text('question2')->nullable();
             $table->text('question3')->nullable();

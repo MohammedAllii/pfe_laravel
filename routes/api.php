@@ -123,7 +123,7 @@ Route::group([
     Route::get('counttypevolontariat', 'OffreController@counttypevolontariat');
     Route::get('counttempsplein', 'OffreController@counttempsplein');
     Route::get('counttempspartiel', 'OffreController@counttempspartiel');
-    Route::get('getoffrebycompany/{name}','OffreController@getoffrebycompany');
+    Route::get('getoffrebycompany/{id}','OffreController@getoffrebycompany');
     Route::get('getoffrebytype/{type}','OffreController@getoffrebytype');
     Route::get('getoffrebytemps/{type}','OffreController@getoffrebytemps');
     //recrutement

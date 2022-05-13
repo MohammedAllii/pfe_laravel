@@ -17,11 +17,6 @@ class OffreController extends Controller
             'monnaie' => request('monnaie'),
             'periode' =>request('periode'),
             'description' =>request('description'),
-            'name_company' => request('name_company'),
-            'site_web' => request('site_web'),
-            'annee' => request('annee'),
-            'employes' => request('employes'),
-            'description_company' => request('description_company'),
             'question1' =>request('question1'),
             'question2' =>request('question2'),
             'question3' =>request('question3'),
@@ -31,7 +26,9 @@ class OffreController extends Controller
     }
     //tous les postes
     public function alloffres($id){
-        $offre = Offre::where('id_company','=',$id)->get();
+        $offre = Offre::join('users','users.id','offres.id_company')
+        ->where('offres.id_company','=',$id)
+        ->get();
         Carbon::setlocale('fr');
         foreach($offre as $offres){
             $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
@@ -40,7 +37,10 @@ class OffreController extends Controller
     }
     //postes en attente
     public function enattente($id){
-        $offre = Offre::where('etat','=',0)->where('id_company','=',$id)->get();
+        $offre = Offre::join('users','users.id','offres.id_company')
+        ->where('etat','=',0)
+        ->where('offres.id_company','=',$id)
+        ->get();
         Carbon::setlocale('fr');
         foreach($offre as $offres){
             $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
@@ -49,7 +49,10 @@ class OffreController extends Controller
     }
     //poste accepter
     public function accepter($id){
-        $offre = Offre::where('etat','=',1)->where('id_company','=',$id)->get();
+        $offre = Offre::join('users','users.id','offres.id_company')
+        ->where('etat','=',1)
+        ->where('offres.id_company','=',$id)
+        ->get();
         Carbon::setlocale('fr');
         foreach($offre as $offres){
             $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
@@ -73,7 +76,7 @@ class OffreController extends Controller
     }
     //tout les offres home
     public function toutoffres(){
-        $offre = Offre::paginate(4);
+        $offre = Offre::join('users','users.id','offres.id_company')->paginate(4);
         Carbon::setlocale('fr');
         foreach($offre as $offres){
             $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
@@ -84,7 +87,9 @@ class OffreController extends Controller
     public function offresaujordhui(){
         $date = Carbon::now()->format('Y-m-d');
         $offre=array();
-        $offre=Offre::where('updated_at','=',$date)->get();
+        $offre=Offre::join('users','users.id','offres.id_company')
+        ->where('offres.updated_at','=',$date)
+        ->get();
         Carbon::setlocale('fr');
         foreach($offre as $offres){
             $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
@@ -93,19 +98,19 @@ class OffreController extends Controller
     }
     //affichage offre
     public function afficheoffre($id){
-        $offre = Offre::where('id','=',$id)->first();
+        $offre = Offre::join('users','users.id','offres.id_company')->where('offres.id','=',$id)->first();
         Carbon::setlocale('fr');
             $offre->setAttribute('added',Carbon::parse($offre->created_at)->diffForHumans());
         return response()->json($offre);
     }
     //offres similaires
     public function afficheoffresimilaire($poste){
-        $offree = Offre::where('poste','like','%'.$poste.'%')->first();
+        $offree = Offre::join('users','users.id','offres.id_company')->where('offres.poste','like','%'.$poste.'%')->first();
         return response()->json($offree);
     }
     //affiche offre by company
-    public function getoffrebycompany($name){
-        $offre = Offre::where('name_company','=',$name)->get();
+    public function getoffrebycompany($id){
+        $offre = Offre::join('users','users.id','offres.id_company')->where('offres.id_company','=',$id)->get();
         Carbon::setlocale('fr');
         foreach($offre as $offres){
             $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
@@ -139,7 +144,9 @@ class OffreController extends Controller
     }
     //affiche offre by type
     public function getoffrebytype($type){
-        $offre = Offre::where('contrat','=',$type)->get();
+        $offre = Offre::join('users','users.id','offres.id_company')
+        ->where('offres.contrat','=',$type)
+        ->get();
         Carbon::setlocale('fr');
         foreach($offre as $offres){
             $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
@@ -158,7 +165,7 @@ class OffreController extends Controller
     }
     //affiche offre by temps
     public function getoffrebytemps($type){
-        $offre = Offre::where('temps_travail','=',$type)->get();
+        $offre = Offre::join('users','users.id','offres.id_company')->where('offres.temps_travail','=',$type)->get();
         Carbon::setlocale('fr');
         foreach($offre as $offres){
             $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
@@ -167,7 +174,9 @@ class OffreController extends Controller
     }
     //recherche offre by poste
     public function rechercheposte($recherche){
-        $offre = Offre::where('poste','like','%'.$recherche.'%')->get();
+        $offre = Offre::join('users','users.id','offres.id_company')
+        ->where('offres.poste','like','%'.$recherche.'%')
+        ->get();
         Carbon::setlocale('fr');
         foreach($offre as $offres){
             $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
@@ -176,7 +185,9 @@ class OffreController extends Controller
     }
     //recherche offre by localite
     public function rechercheposteloc($recherche){
-        $offre = Offre::where('lieu_travail','like','%'.$recherche.'%')->get();
+        $offre = Offre::join('users','users.id','offres.id_company')
+        ->where('offres.lieu_travail','like','%'.$recherche.'%')
+        ->get();
         Carbon::setlocale('fr');
         foreach($offre as $offres){
             $offres->setAttribute('added',Carbon::parse($offres->created_at)->diffForHumans());
@@ -202,11 +213,6 @@ public function updatepost(Request $request,$id){
         'monnaie' => $request->monnaie,
         'periode' =>$request->periode,
         'description' =>$request->description,
-        'name_company' => $request->name_company,
-        'site_web' => $request->site_web,
-        'annee' => $request->annee,
-        'employes' => $request->employes,
-        'description_company' => $request->description_company,
         'question1' =>$request->question1,
         'question2' =>$request->question2,
         'question3' =>$request->question3,
