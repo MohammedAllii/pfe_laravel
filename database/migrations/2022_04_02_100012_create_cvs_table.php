@@ -22,7 +22,7 @@ class CreateCvsTable extends Migration
             $table->string('poste');
             $table->text('resume')->nullable();
             $table->text('interet')->nullable();
-            $table->string('skills')->nullable();
+            $table->text('skills')->nullable();
             $table->string('localite');
             $table->string('adresse')->nullable();
             $table->string('code_postal')->nullable();
@@ -31,7 +31,7 @@ class CreateCvsTable extends Migration
             $table->string('nationalite')->nullable();
             $table->date('date_naissance')->nullable();
             $table->string('pdf')->nullable();
-            $table->string('avatar')->default('cv.png');
+            $table->string('avatar_cv')->default('cv.png');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

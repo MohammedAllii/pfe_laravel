@@ -44,6 +44,9 @@ Route::group([
     Route::get('recherchecv/{recherche?}','CvController@recherchecv');
     
     //user routes
+    Route::get('alluser', 'UserController@alluser');
+    Route::get('allcompany', 'UserController@allcompany');
+    Route::get('alladmins', 'UserController@alladmins');
     Route::get('afficheuser/{id}', 'UserController@afficheuser');
     Route::post('upload/{id}','UserController@upload')->name('upload');
     Route::get('getUser/{id}', 'UserController@getUser');
@@ -51,7 +54,9 @@ Route::group([
     Route::post('updateemail/{id}', 'UserController@updateemail')->name('updateemail');
     Route::post('updatepassword/{id}', 'UserController@updatepassword')->name('updatepassword');
     Route::post('updatecompany/{id}', 'UserController@updatecompany')->name('updatecompany');
+    Route::post('updateuser/{id}', 'UserController@updateuser')->name('updateuser');
     Route::delete('deleteuser/{id}', 'UserController@deleteuser');
+    Route::post('addskillsusers/{id}','UserController@addskillsusers')->name('addskillsusers');
     //experience routes
     Route::get('getexperience/{id}','ExperienceController@getexperience');
     Route::get('afficheexperience/{id}','ExperienceController@afficheexperience');
@@ -94,8 +99,10 @@ Route::group([
     Route::get('stataccepter/{id}','OffreController@stataccepter');
     Route::post('registeroffre','OffreController@registeroffre')->name('registeroffre');
     Route::post('modifieroffre/{id}','OffreController@modifieroffre')->name('modifieroffre');
+    Route::post('accepteroffre/{id}','OffreController@accepteroffre')->name('accepteroffre');
     Route::delete('deleteoffre/{id}','OffreController@deleteoffre');
     Route::get('toutoffres','OffreController@toutoffres');
+    Route::get('toutoffresadmin','OffreController@toutoffresadmin');
     Route::get('offresaujordhui','OffreController@offresaujordhui');
     Route::get('rechercheposte/{recherche?}','OffreController@rechercheposte');
     Route::get('rechercheposteloc/{recherche?}','OffreController@rechercheposteloc');
@@ -109,11 +116,16 @@ Route::group([
     Route::delete('deletelettre/{id}','LettreController@deletelettre');
     Route::post('downloadlettre','LettreController@downloadlettre')->name('downloadlettre');
     Route::get('affichelettre/{id}', 'LettreController@affichelettre');
-    //favoris
+    //favoris offre
     Route::post('addfavoris/{id_user}/{id_offre}','FavorisController@addfavoris')->name('addfavoris');
     Route::get('getoffres/{id}','FavorisController@getoffres');
     Route::delete('deleteoffresave/{id_offre}/{id_user}','FavorisController@deleteoffresave');
     Route::delete('deletealloffresave/{id_user}','FavorisController@deletealloffresave');
+    //favoris cv
+    Route::post('addfavoriscv/{id_user}/{id_cv}','FavorisCvController@addfavoriscv')->name('addfavoriscv');
+    Route::get('getcvs/{id}','FavorisCvController@getcvs');
+    Route::delete('deletecvsave/{id_cv}/{id_user}','FavorisCvController@deletecvsave');
+    Route::delete('deleteallcvsave/{id_user}','FavorisCvController@deleteallcvsave');
     //company
     Route::get('getcompany', 'UserController@getcompany');
     Route::get('counttypecdi', 'OffreController@counttypecdi');
@@ -132,6 +144,9 @@ Route::group([
     Route::get('getcandidatdetails/{id_user}/{id_offre}','RecrutementController@getcandidatdetails');
     Route::get('countoffrescandidat/{id}','RecrutementController@countoffrescandidat');
     Route::get('getcandidatinfo/{id_user}','RecrutementController@getcandidatinfo');
+    Route::get('getoffrepostuler/{id}','RecrutementController@getoffrepostuler');
+    Route::delete('deleteoffrepostuler/{id_offre}/{id_user}','RecrutementController@deleteoffrepostuler');
+    Route::delete('deletealloffrepostuler/{id_user}','RecrutementController@deletealloffrepostuler');
     
 });
 

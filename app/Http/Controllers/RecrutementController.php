@@ -14,11 +14,16 @@ class RecrutementController extends Controller
         
         try{
             if(!$recrutement){
-            if($request->hasFile("img")){
+            if($request->hasFile("img") && $request->hasFile("lettre")){
                 $file = $request->file("img");
                 $extension=$file->getClientOriginalExtension();
                 $filename=time().'.'.$extension;
                 $file->move('C:/Users/wiouu/hamoudat/public/cvs/',$filename);
+
+                $file1 = $request->file("lettre");
+                $extension1=$file1->getClientOriginalExtension();
+                $filename1=time().'.'.$extension1;
+                $file1->move('C:/Users/wiouu/hamoudat/public/lettres/',$filename1);
                 $req = Recrutement::create([
                     'name_candidat' => request('name_candidat'),
                     'email' => request('email'),
@@ -28,7 +33,8 @@ class RecrutementController extends Controller
                     'reponse3' =>request('reponse3'),
                     'id_user' =>request('id_user'),
                     'id_offre' =>request('id_offre'),
-                    'cv' =>$filename
+                    'cv' =>$filename,
+                    'lettre' =>$filename1
                 ]);
                 return response()->json(["message" => "bravooo"]);
             }
@@ -76,4 +82,23 @@ class RecrutementController extends Controller
         ->get();
         return response()->json($offre);
             }
+     //offre postuler afficher
+     public function getoffrepostuler($id){
+        $offre = DB::table('offres')
+        ->join('recrutements','recrutements.id_offre','offres.id')
+        ->join('users','users.id','offres.id_company')
+        ->where('recrutements.id_user',$id)
+        ->get();
+        return response()->json($offre);
+        }
+        //supprimer offre postuler
+    public function deleteoffrepostuler($id_offre,$id_user){
+        $recrutement = Recrutement::where('id_offre','=',$id_offre)->where('id_user','=',$id_user)->delete();
+        return response()->json($recrutement);
+}
+//supprimer tous offre postuler
+public function deletealloffrepostuler($id_user){
+    $recrutement = Recrutement::where('id_user','=',$id_user)->delete();
+    return response()->json($recrutement);
+}
 }

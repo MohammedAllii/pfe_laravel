@@ -18,12 +18,14 @@ class CreateDiplomesTable extends Migration
             $table->string('etablissement');
             $table->string('diplome');
             $table->string('country');
-            $table->string('discipline');
+            $table->text('discipline');
             $table->date('debut');
             $table->date('fin');
-            $table->string('description');
-            $table->unsignedBigInteger('id_cv');
+            $table->text('description');
+            $table->unsignedBigInteger('id_cv')->nullable();
             $table->foreign('id_cv')->references('id')->on('cvs')->onDelete('cascade');
+            $table->unsignedBigInteger('id_user')->nullable();
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade'); 
             $table->timestamps();
         });
     }

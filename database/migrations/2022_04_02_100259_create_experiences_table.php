@@ -21,8 +21,10 @@ class CreateExperiencesTable extends Migration
             $table->date('debut');
             $table->date('fin');
             $table->text('description');
-            $table->unsignedBigInteger('id_cv');
+            $table->unsignedBigInteger('id_cv')->nullable();
             $table->foreign('id_cv')->references('id')->on('cvs')->onDelete('cascade');
+            $table->unsignedBigInteger('id_user')->nullable();
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade'); 
             $table->timestamps();
         });
     }

@@ -29,7 +29,7 @@ class FavorisController extends Controller
     public function getoffres($id){
         $offre = DB::table('offres')
         ->join('favoris','favoris.id_offre','offres.id')
-        ->join('users','users.id','favoris.id_user')
+        ->join('users','users.id','offres.id_company')
         ->where('favoris.id_user',$id)
         ->get();
         return response()->json($offre);

@@ -19,9 +19,10 @@ class CreateRecrutementsTable extends Migration
             $table->string('last_name_candidat');
             $table->string('email');
             $table->string('cv');
-            $table->string('reponse1')->nullable();
-            $table->string('reponse2')->nullable();
-            $table->string('reponse3')->nullable();
+            $table->string('lettre');
+            $table->integer('reponse1')->nullable();
+            $table->integer('reponse2')->nullable();
+            $table->integer('reponse3')->nullable();
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_offre');

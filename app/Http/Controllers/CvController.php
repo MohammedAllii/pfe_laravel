@@ -54,12 +54,12 @@ class CvController extends Controller
             try{
                 $cv = Cv::find($id);
                 if($request->hasFile("img")){
-                    $destination='C:/Users/wiouu/hamoudat/public/cvs/'.$cv->avatar;
+                    $destination='C:/Users/wiouu/hamoudat/public/cvs/'.$cv->avatar_cv;
                     $file = $request->file("img");
                     $extension=$file->getClientOriginalExtension();
                     $filename=time().'.'.$extension;
                     $file->move('C:/Users/wiouu/hamoudat/public/cvs/',$filename);
-                    $cv->avatar=$filename;
+                    $cv->avatar_cv=$filename;
                     $res=$cv->save();
                     return response()->json($cv);
                 }
@@ -142,6 +142,7 @@ class CvController extends Controller
         $cv = Cv::where('poste','like','%'.$recherche.'%')->get();
         return response()->json($cv);
     }
+    
         
 
 }

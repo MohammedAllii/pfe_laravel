@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompetencesTable extends Migration
+class CreateFavorisCvsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateCompetencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('competences', function (Blueprint $table) {
+        Schema::create('favoris_cvs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('competence');
-            $table->string('experience');
-            $table->unsignedBigInteger('id_cv')->nullable();
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('id_cv');
             $table->foreign('id_cv')->references('id')->on('cvs')->onDelete('cascade');
-            $table->unsignedBigInteger('id_user')->nullable();
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade'); 
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateCompetencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('competences');
+        Schema::dropIfExists('favoris_cvs');
     }
 }

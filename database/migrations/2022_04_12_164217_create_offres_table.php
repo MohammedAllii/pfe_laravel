@@ -28,6 +28,9 @@ class CreateOffresTable extends Migration
             $table->text('question1')->nullable();
             $table->text('question2')->nullable();
             $table->text('question3')->nullable();
+            $table->integer('reponse_attendu1')->nullable();
+            $table->integer('reponse_attendu2')->nullable();
+            $table->integer('reponse_attendu3')->nullable();
             $table->unsignedBigInteger('id_company');
             $table->foreign('id_company')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
