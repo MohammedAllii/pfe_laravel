@@ -84,12 +84,14 @@ Route::group([
     Route::delete('deletecompetence/{id}','CompetenceController@deletecompetence');
     //liens routes
     Route::get('getlien/{id}','LienController@getlien');
+    Route::get('getlienuser/{id}','LienController@getlienuser');
     Route::get('affichelien/{id}','LienController@affichelien');
     Route::post('addlien','LienController@addlien')->name('addlien');
     Route::post('modifierlien/{id}','LienController@modifierlien')->name('modifierlien');
     Route::delete('deletelien/{id}','LienController@deletelien');
     //langues routes
     Route::get('getlangue/{id}','LangueController@getlangue');
+    Route::get('getlangueuser/{id}','LangueController@getlangueuser');
     Route::get('affichelangue/{id}','LangueController@affichelangue');
     Route::post('addlangue','LangueController@addlangue')->name('addlangue');
     Route::post('modifierlangue/{id}','LangueController@modifierlangue')->name('modifierlangue');

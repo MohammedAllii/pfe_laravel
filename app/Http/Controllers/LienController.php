@@ -12,6 +12,7 @@ class LienController extends Controller
             'titre' => request('titre'),
             'url' => request('url'),
             'id_cv' => request('id_cv'),
+            'id_user'=>request('id_user')
         ]);
         return response()->json([
             "message" => "ajout avec success"
@@ -20,6 +21,11 @@ class LienController extends Controller
     //affiche liens
     public function getlien($id){
         $lien = Lien::where("id_cv","=",$id)->get();
+        return response()->json($lien);
+    }
+    //affiche liens profile
+    public function getlienuser($id){
+        $lien = Lien::where("id_user","=",$id)->get();
         return response()->json($lien);
     }
     //modifier liens
