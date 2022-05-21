@@ -18,6 +18,7 @@ class DiplomeController extends Controller
             'fin' => request('fin'),
             'description' => request('description'),
             'id_cv' => request('id_cv'),
+            'id_user'=>request('id_user')
         ]);
         return response()->json([
             "message" => "ajout avec success"
@@ -26,6 +27,17 @@ class DiplomeController extends Controller
     //affiche diplome
     public function getdiplome($id){
         $diplome = Diplome::where("id_cv","=",$id)->get();
+        Carbon::setlocale('fr');
+        foreach($diplome as $diplomes){
+            $diplomes->setAttribute('debut',Carbon::parse($diplomes->debut)->format('j F Y'));
+            $diplomes->setAttribute('fin',Carbon::parse($diplomes->fin)->format('j F Y'));
+        }
+        
+        return response()->json($diplome);
+    }
+    //affiche diplome profile
+    public function getdiplomeuser($id){
+        $diplome = Diplome::where("id_user","=",$id)->get();
         Carbon::setlocale('fr');
         foreach($diplome as $diplomes){
             $diplomes->setAttribute('debut',Carbon::parse($diplomes->debut)->format('j F Y'));

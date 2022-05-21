@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Experience;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class ExperienceController extends Controller
 {
     //ajouter résumé
@@ -16,6 +16,7 @@ class ExperienceController extends Controller
             'fin' => request('fin'),
             'description' => request('description'),
             'id_cv' => request('id_cv'),
+            'id_user'=>request('id_user')
         ]);
         return response()->json([
             "message" => "ajout avec success"
@@ -24,6 +25,21 @@ class ExperienceController extends Controller
     //affiche experiences
     public function getexperience($id){
         $experience = Experience::where("id_cv","=",$id)->get();
+        Carbon::setlocale('fr');
+        foreach($experience as $experiences){
+            $experiences->setAttribute('debut',Carbon::parse($experiences->debut)->format('j F Y'));
+            $experiences->setAttribute('fin',Carbon::parse($experiences->fin)->format('j F Y'));
+        }
+        return response()->json($experience);
+    }
+    //affiche experiences user
+    public function getexperienceuser($id){
+        $experience = Experience::where("id_user","=",$id)->get();
+        Carbon::setlocale('fr');
+        foreach($experience as $experiences){
+            $experiences->setAttribute('debut',Carbon::parse($experiences->debut)->format('j F Y'));
+            $experiences->setAttribute('fin',Carbon::parse($experiences->fin)->format('j F Y'));
+        }
         return response()->json($experience);
     }
     //affiche experience a modifier

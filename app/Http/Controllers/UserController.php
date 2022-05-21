@@ -36,6 +36,26 @@ class UserController extends Controller
         }
         
     }
+    //photo de couverture
+    public function uploadcouverture(Request $request,$id){
+        try{
+            $user = User::find($id);
+            if($request->hasFile("couverture")){
+                $file = $request->file("couverture");
+                $extension=$file->getClientOriginalExtension();
+                $filename=time().'.'.$extension;
+                $file->move('C:/Users/wiouu/hamoudat/public/images/',$filename);
+                $user->avatar_couverture=$filename;
+                $res=$user->save();
+                return response()->json($user);
+            }
+        }catch(Exeption $e){
+            return response()->json([
+                "message" => $e->getMessage()
+            ]);
+        }
+        
+    }
     //affichage user dans une autre page
     public function getUser($id){
         $user= User::find($id);
@@ -133,6 +153,36 @@ class UserController extends Controller
     public function addskillsusers(Request $request,$id ){
         $user = User::where('id','=',$id)->update([
         'skills_user'=>$request->skills_user
+        ]);
+        return response()->json($user);
+    }
+    //ajouter Resume in profile
+    public function addresumeuser(Request $request,$id ){
+        $user = User::where('id','=',$id)->update([
+        'resume_user'=>$request->resume_user
+        ]);
+        return response()->json($user);
+    }
+    //ajouter interet in profile
+    public function addinteretuser(Request $request,$id ){
+        $user = User::where('id','=',$id)->update([
+        'interet_user'=>$request->interet_user
+        ]);
+        return response()->json($user);
+    }
+    //Add Admin
+    public function addAdmin(Request $request){
+        $user = User::create([
+            'name' => request('name'),
+            'last_name' => request('last_name'),
+            'email' => request('email'),
+            'password' =>Hash::make(request('password')),
+            'role' => request('role'),
+            'adresse' => request('adresse'),
+            'gouvernorat' => request('gouvernorat'),
+            'civilite' => request('civilite'),
+            'phone' => request('phone'),
+            'specialite' => request('specialite'),
         ]);
         return response()->json($user);
     }

@@ -13,6 +13,7 @@ class CompetenceController extends Controller
             'competence' => request('competence'),
             'experience' => request('experience'),
             'id_cv' => request('id_cv'),
+            'id_user'=>request('id_user')
         ]);
         return response()->json([
             "message" => "ajout avec success"
@@ -21,6 +22,11 @@ class CompetenceController extends Controller
     //affiche competences
     public function getcompetence($id){
         $competence = Competence::where("id_cv","=",$id)->get();
+        return response()->json($competence);
+    }
+    //affiche competences profile
+    public function getcompetenceuser($id){
+        $competence = Competence::where("id_user","=",$id)->get();
         return response()->json($competence);
     }
     //supprimer competence
